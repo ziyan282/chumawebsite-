@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammed Ziyan PK | Portfolio</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #07070d;
+    color: #e7e7ef;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Glowing background blobs */
+  .glow {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.35;
+    z-index: -1;
+  }
+  .glow-1 { width: 420px; height: 420px; background: #6d5dfc; top: -100px; left: -100px; }
+  .glow-2 { width: 380px; height: 380px; background: #00d4ff; bottom: -120px; right: -100px; }
+
+  /* Navbar */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 8%;
+    background: rgba(7, 7, 13, 0.7);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    z-index: 10;
+  }
+  .logo { font-weight: 700; font-size: 20px; letter-spacing: 1px; }
+  .logo span { color: #8b7dff; }
+  nav ul { display: flex; gap: 32px; list-style: none; }
+  nav a {
+    color: #a8a8ba;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.3s;
+  }
+  nav a:hover { color: #ffffff; }
+
+  section { padding: 110px 8% 60px; }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+  .hero-text { max-width: 600px; }
+  .tag {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1px solid rgba(139, 125, 255, 0.5);
+    border-radius: 50px;
+    font-size: 13px;
+    color: #b9b0ff;
+    background: rgba(139, 125, 255, 0.1);
+    margin-bottom: 20px;
+  }
+  .hero h1 { font-size: 58px; line-height: 1.1; margin-bottom: 16px; }
+  .gradient-text {
+    background: linear-gradient(90deg, #8b7dff, #00d4ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero h2 { font-size: 22px; font-weight: 500; color: #a8a8ba; margin-bottom: 20px; }
+  .hero p { color: #8d8da1; margin-bottom: 32px; }
+
+  .buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn {
+    padding: 14px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .btn:hover { transform: translateY(-3px); }
+  .btn-primary {
+    background: linear-gradient(90deg, #6d5dfc, #00b8e6);
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(109, 93, 252, 0.4);
+  }
+  .btn-outline {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+  .btn-outline:hover { background: rgba(255, 255, 255, 0.06); }
+
+  /* Profile card */
+  .profile-card {
+    width: 320px;
+    padding: 40px 30px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 28px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  }
+  .avatar {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6d5dfc, #00d4ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 0 40px rgba(109, 93, 252, 0.6);
+  }
+  .profile-card h3 { font-size: 20px; margin-bottom: 4px; }
+  .profile-card .role { color: #8d8da1; font-size: 14px; margin-bottom: 20px; }
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 14px;
+  }
+  .info-row span:first-child { color: #8d8da1; }
+
+  /* Section titles */
+  .section-title { font-size: 34px; margin-bottom: 10px; }
+  .section-sub { color: #8d8da1; margin-bottom: 40px; }
+
+  /* About */
+  .about-box {
+    max-width: 800px;
+    padding: 34px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    color: #b4b4c6;
+  }
+
+  /* Cards grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .card {
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s;
+  }
+  .card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(139, 125, 255, 0.6);
+    box-shadow: 0 20px 50px rgba(109, 93, 252, 0.2);
+  }
+  .icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(109, 93, 252, 0.25), rgba(0, 212, 255, 0.25));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 18px;
+  }
+  .card h3 { margin-bottom: 8px; font-size: 19px; }
+  .card p { color: #8d8da1; font-size: 15px; }
+
+  /* Skill bars */
+  .skill { margin-bottom: 22px; max-width: 700px; }
+  .skill-top { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 15px; }
+  .bar { height: 8px; background: rgba(255, 255, 255, 0.08); border-radius: 10px; overflow: hidden; }
+  .fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, #6d5dfc, #00d4ff); }
+
+  /* Contact */
+  .contact { text-align: center; }
+  .contact-box {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 50px 30px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 28px;
+  }
+  .contact-box p { color: #8d8da1; margin-bottom: 28px; }
+
+  footer {
+    text-align: center;
+    padding: 30px;
+    color: #6b6b7e;
+    font-size: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .hero h1 { font-size: 40px; }
+    .hero { padding-top: 120px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">ZIYAN<span>.</span></div>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#service">Service Learning</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <span class="tag">Available for opportunities</span>
+      <h1>Hi, I'm <span class="gradient-text">Muhammed Ziyan PK</span></h1>
+      <h2>Student at CHRIST University | Math, Data &amp; Code</h2>
+      <p>
+        I'm passionate about turning numbers into insights and ideas into working software.
+        I study Applied Mathematics, Database Management Systems and Java programming.
+      </p>
+      <div class="buttons">
+        <a href="#contact" class="btn btn-primary">Get In Touch</a>
+        <a href="#skills" class="btn btn-outline">View Skills</a>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <div class="avatar">MZ</div>
+      <h3>Muhammed Ziyan PK</h3>
+      <p class="role">Student Developer</p>
+      <div class="info-row"><span>University</span><span>CHRIST</span></div>
+      <div class="info-row"><span>Course</span><span>3BSCDM</span></div>
+      <div class="info-row"><span>Focus</span><span>Math + Code</span></div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+    <p class="section-sub">A little bit about who I am</p>
+    <div class="about-box">
+      I am a student at CHRIST University pursuing the 3BSCDM programme. I enjoy
+      combining mathematical thinking with programming to solve real problems.
+      My studies cover Applied Mathematics, Database Management Systems and Java,
+      and I love learning by building projects. Outside the classroom, I take part
+      in a service learning program where I apply my skills for the community.
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <h2 class="section-title">What I <span class="gradient-text">Study</span></h2>
+    <p class="section-sub">Core areas of my academic journey</p>
+
+    <div class="grid" style="margin-bottom: 50px;">
+      <div class="card">
+        <div class="icon">📐</div>
+        <h3>Applied Mathematics</h3>
+        <p>Using mathematical models and logic to analyse and solve practical problems.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🗄️</div>
+        <h3>Database Management</h3>
+        <p>Designing, querying and managing structured data with DBMS concepts and SQL.</p>
+      </div>
+      <div class="card">
+        <div class="icon">☕</div>
+        <h3>Java Programming</h3>
+        <p>Building object-oriented programs with clean and simple Java code.</p>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-top"><span>Java</span><span>80%</span></div>
+      <div class="bar"><div class="fill" style="width: 80%;"></div></div>
+    </div>
+    <div class="skill">
+      <div class="skill-top"><span>DBMS / SQL</span><span>85%</span></div>
+      <div class="bar"><div class="fill" style="width: 85%;"></div></div>
+    </div>
+    <div class="skill">
+      <div class="skill-top"><span>Applied Mathematics</span><span>90%</span></div>
+      <div class="bar"><div class="fill" style="width: 90%;"></div></div>
+    </div>
+  </section>
+
+  <!-- Service Learning -->
+  <section id="service">
+    <h2 class="section-title">Service <span class="gradient-text">Learning</span></h2>
+    <p class="section-sub">Learning by giving back</p>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🤝</div>
+        <h3>Community Impact</h3>
+        <p>Active participant in CHRIST University's service learning program, working with the community.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌱</div>
+        <h3>Growth Mindset</h3>
+        <p>Developing teamwork, leadership and communication skills through real-world experience.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+    <p class="section-sub">Open to internships, projects and collaborations</p>
+    <div class="contact-box">
+      <p>Have an idea or an opportunity? Send me a message and let's build something great together.</p>
+      <a href="mailto:yourname@email.com" class="btn btn-primary">Say Hello</a>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Muhammed Ziyan PK. All rights reserved.
+  </footer>
+
+</body>
+</html>
